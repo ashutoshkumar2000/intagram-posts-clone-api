@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CreatePostResponseDto {
+  id: ID!
+  author: String!
+  caption: String!
+  mediaUrls: [String!]!
+  createdAt: DateTime!
+  comments: [String!]!
+  likedBy: [String!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LikeResponseDto {
+  count: Int!
+}
+
+type Query {
+  hello: String!
+  posts(input: PaginationOptions!): [CreatePostResponseDto!]!
+  postById(input: PostByIdInput!): CreatePostResponseDto!
+  postsByAuthor(input: PostByAuthor!): [CreatePostResponseDto!]!
+}
+
+input PaginationOptions {
+  pageNumber: Int! = 1
+  size: Int! = 5
+}
+
+input PostByIdInput {
+  id: String!
+}
+
+input PostByAuthor {
+  author: String!
+}
+
+type Mutation {
+  addCommentById(input: CommentByIdInput!): Boolean!
+  createPost(input: PostInput!): CreatePostResponseDto!
+  likePost(input: LikeUnlikeInput!): LikeResponseDto!
+}
+
+input CommentByIdInput {
+  id: String!
+  comment: String!
+}
+
+input PostInput {
+  author: String!
+  caption: String!
+  mediaUrls: [String!]!
+  comments: [String!]
+  likedBy: [String!]
+}
+
+input LikeUnlikeInput {
+  authorId: String!
+  postId: String!
+}
